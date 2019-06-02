@@ -14,7 +14,7 @@ int main()
     double B02[6]; //para guardar temporalmente los resultados traslacion y rotacion robor en el instante cero a dos
     //Despliegue de autoría en el terminal
     printf("****************************************************************************\n");
-    printf("** I EXAMEN DE DISEÑO PROGRAMACIÓN Y PRUEBA, Belinda Brown B61254         **\n");
+    printf("** I EXAMEN DE DISEÑO PROGRAMACIÓN Y PRUEBA, Belinda Brown B61254         **\n");
     printf("** Estimando POSE, rotacion y traslacion                                  **\n");
     printf("** Programa de referencia tomado del Prof. Dr.-Ing. Geovanni Martínez     **\n");
     printf("** IE-0449 Vision por Computador                                          **\n");
@@ -56,7 +56,7 @@ int main()
 
     //Reservando e inicializando memoria de contenedor p_resultados
     p_resultados = (struct contenedor_de_resultados *)malloc(sizeof(struct contenedor_de_resultados));
-    //Inicializando y reservando memoria para posicion de memoria para mástil del
+    //Inicializando y reservando memoria para posicion de memoria para mástil del
 //robot en el instante de tiempo k=1 y k=2
     p_resultados->HXm1=0.0;
     p_resultados->HYm1=0.0;
@@ -163,12 +163,12 @@ int main()
     printf("\n");
     printf("Resultados:\n");
 
-    printf("La posicion del mástil del robot en el instante de tiempo k=1 con respecto al sistema de coordenadas del mundo \n");
+    printf("La posicion del mástil del robot en el instante de tiempo k=1 con respecto al sistema de coordenadas del mundo \n");
     printf(" HXm1= %.3f\n", p_resultados->HXm1);
     printf(" HYm1= %.3f\n", p_resultados->HYm1);
     printf(" HZm1= %.3f\n", p_resultados->HZm1);
 
-    printf("La posicion del mástil del robot en el instante de tiempo k=2 con respecto al sistema de coordenadas del mundo \n");
+    printf("La posicion del mástil del robot en el instante de tiempo k=2 con respecto al sistema de coordenadas del mundo \n");
     printf(" HXm2= %.3f\n", p_resultados->HXm2);
     printf(" HYm2= %.3f\n", p_resultados->HYm2);
     printf(" HZm2= %.3f\n", p_resultados->HZm2);
@@ -188,7 +188,7 @@ int main()
     printf(" G2rx= %.3f\n", p_resultados->G2rx);
     printf(" G2ry= %.3f\n", p_resultados->G2ry);
     printf(" G2rz= %.3f\n", p_resultados->G2rz);
-    printf(" Posicion del robot con respecto a las coordenadas de referencia del mudno en el instante k=2 \n");
+    printf(" Orientación del robot con respecto a las coordenadas de referencia del mudno en el instante k=2 \n");
     printf(" R2rx= %f\n", p_resultados->R2rx);
     printf(" R2ry= %f\n", p_resultados->R2ry);
     printf(" R2rz= %f\n", p_resultados->R2rz);
@@ -451,7 +451,7 @@ void geoLeerParametrosDeControlDeArchivoDeTexto()
 
     fscanf(archivo, "\n");
 
-    printf("La posicion del mástil del robot en el instante de tiempo k=0 con respecto al sistema de coordenadas del mundo\n");
+    printf("La posicion del mástil del robot en el instante de tiempo k=0 con respecto al sistema de coordenadas del mundo\n");
     //Leyendo Hr0mX
     fscanf(archivo, "%s %s\n", d1, d3);
     p_parametros->Hr0mX=(double)atof(d3);
