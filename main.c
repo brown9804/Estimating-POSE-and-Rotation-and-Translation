@@ -111,6 +111,11 @@ int main()
     p_resultados->HYm1=H1[1];
     H1[2]=(p_resultados->R01[6]*(p_parametros->Hr0mX-p_parametros->Gr0mX)+p_resultados->R01[7]*(p_parametros->Hr0mY-p_parametros->Gr0mY)+p_resultados->R01[8]*(p_parametros->Hr0mZ-p_parametros->Gr0mZ))+p_parametros->Gr0mZ+p_parametros->DTr0a1mZ;
     p_resultados->HZm1=H1[2];
+
+    p_resultados->G1rx=p_parametros->Gr0mX+p_parametros->DTr0a1mX;
+    p_resultados->G1ry=p_parametros->Gr0mY+p_parametros->DTr0a1mY;
+    p_resultados->G1rz=p_parametros->Gr0mZ+p_parametros->DTr0a1mZ;
+
     //Calculando la posicion del mastil  en instante dos respecto
       //a sistema de coordinadas de referencia
     H2[0]=(p_resultados->R12[0]*(p_resultados->HXm1-p_resultados->G1rx)+p_resultados->R12[1]*(p_resultados->HYm1-p_resultados->G1ry)+p_resultados->R12[2]*(p_resultados->HZm1-p_resultados->G1rz))+p_resultados->G1rx+p_parametros->DTr1a2mX;
@@ -125,12 +130,8 @@ int main()
     p_resultados->R1ry=beconvertirDeRadianesAGrados(P1[3]);
     P1[4]=asin(p_resultados->R1[7]/cos(P1[3]));
     p_resultados->R1rx=beconvertirDeRadianesAGrados(P1[4]);
-    P1[5]=acos(p_resultados->R1[0]/cos(P1[3]));
+    P1[5]=asin(p_resultados->R1[3]/cos(P1[3]));
     p_resultados->R1rz=beconvertirDeRadianesAGrados(P1[5]);
-
-    p_resultados->G1rx=p_parametros->Gr0mX+p_parametros->DTr0a1mX;
-    p_resultados->G1ry=p_parametros->Gr0mY+p_parametros->DTr0a1mY;
-    p_resultados->G1rz=p_parametros->Gr0mZ+p_parametros->DTr0a1mZ;
 
   //Calculando la POSE robot  en instante de dos respecto
   //a sistema de coordinadas de referencia
@@ -142,7 +143,7 @@ int main()
     p_resultados->R2ry=beconvertirDeRadianesAGrados(P2[3]);
     P2[4]=asin(p_resultados->R2[7]/cos(P2[3]));
     p_resultados->R2rx=beconvertirDeRadianesAGrados(P2[4]);
-    P2[5]=acos(p_resultados->R2[0]/cos(P2[3]));
+    P2[5]=asin(p_resultados->R2[3]/cos(P2[3]));
     p_resultados->R2rz=beconvertirDeRadianesAGrados(P2[5]);
 
     //Calculando la traslacion y rotacion robot  en instante de cero a dos respecto
@@ -155,7 +156,7 @@ int main()
     p_resultados->Rr0a2y=beconvertirDeRadianesAGrados(B02[3]);
     B02[4]=asin(p_resultados->R02[7]/cos(B02[3]));
     p_resultados->Rr0a2x=beconvertirDeRadianesAGrados(B02[4]);
-    B02[5]=acos(p_resultados->R02[0]/cos(B02[3]));
+    B02[5]=asin(p_resultados->R02[3]/cos(B02[3]));
     p_resultados->Rr0a2z=beconvertirDeRadianesAGrados(B02[5]);
     //Salvando los resultados finales en archivo de texto
     geoSalvarResultadosEnArchivoDeTexto();
@@ -188,7 +189,7 @@ int main()
     printf(" G2rx= %.3f\n", p_resultados->G2rx);
     printf(" G2ry= %.3f\n", p_resultados->G2ry);
     printf(" G2rz= %.3f\n", p_resultados->G2rz);
-    printf(" Orientación del robot con respecto a las coordenadas de referencia del mudno en el instante k=2 \n");
+    printf(" Orientacion del robot con respecto a las coordenadas de referencia del mudno en el instante k=2 \n");
     printf(" R2rx= %f\n", p_resultados->R2rx);
     printf(" R2ry= %f\n", p_resultados->R2ry);
     printf(" R2rz= %f\n", p_resultados->R2rz);
@@ -295,15 +296,15 @@ void geoObtenerMatrizDeRotacionR0()
     p_resultados->R2[8]=p_resultados->R12[6]*p_resultados->R1[2]+p_resultados->R12[7]*p_resultados->R1[5]+ p_resultados->R12[8]*p_resultados->R1[8];
 
 //Calculando la matriz de rotacion de cero a dos
-    p_resultados->R02[0]=p_resultados->R2[0]*p_resultados->R0[8]+p_resultados->R2[1]*p_resultados->R0[5]+ p_resultados->R2[2]*p_resultados->R0[2];
-    p_resultados->R02[1]=p_resultados->R2[0]*p_resultados->R0[7]+p_resultados->R2[1]*p_resultados->R0[4]+ p_resultados->R2[2]*p_resultados->R0[1];
-    p_resultados->R02[2]=p_resultados->R2[0]*p_resultados->R0[6]+p_resultados->R2[1]*p_resultados->R0[3]+ p_resultados->R2[2]*p_resultados->R0[0];
-    p_resultados->R02[3]=p_resultados->R2[3]*p_resultados->R0[8]+p_resultados->R2[4]*p_resultados->R0[5]+ p_resultados->R2[5]*p_resultados->R0[2];
-    p_resultados->R02[4]=p_resultados->R2[3]*p_resultados->R0[7]+p_resultados->R2[4]*p_resultados->R0[4]+ p_resultados->R2[5]*p_resultados->R0[1];
-    p_resultados->R02[5]=p_resultados->R2[3]*p_resultados->R0[6]+p_resultados->R2[4]*p_resultados->R0[3]+ p_resultados->R2[5]*p_resultados->R0[0];
-    p_resultados->R02[6]=p_resultados->R2[6]*p_resultados->R0[8]+p_resultados->R2[7]*p_resultados->R0[5]+ p_resultados->R2[8]*p_resultados->R0[2];
-    p_resultados->R02[7]=p_resultados->R2[6]*p_resultados->R0[7]+p_resultados->R2[7]*p_resultados->R0[4]+ p_resultados->R2[8]*p_resultados->R0[1];
-    p_resultados->R02[8]=p_resultados->R2[6]*p_resultados->R0[6]+p_resultados->R2[7]*p_resultados->R0[3]+ p_resultados->R2[8]*p_resultados->R0[0];
+    p_resultados->R02[0]=p_resultados->R2[0]*p_resultados->R0[0]+p_resultados->R2[1]*p_resultados->R0[1]+ p_resultados->R2[2]*p_resultados->R0[2];
+    p_resultados->R02[1]=p_resultados->R2[0]*p_resultados->R0[3]+p_resultados->R2[1]*p_resultados->R0[4]+ p_resultados->R2[2]*p_resultados->R0[5];
+    p_resultados->R02[2]=p_resultados->R2[0]*p_resultados->R0[6]+p_resultados->R2[1]*p_resultados->R0[7]+ p_resultados->R2[2]*p_resultados->R0[8];
+    p_resultados->R02[3]=p_resultados->R2[3]*p_resultados->R0[0]+p_resultados->R2[4]*p_resultados->R0[1]+ p_resultados->R2[5]*p_resultados->R0[2];
+    p_resultados->R02[4]=p_resultados->R2[3]*p_resultados->R0[3]+p_resultados->R2[4]*p_resultados->R0[4]+ p_resultados->R2[5]*p_resultados->R0[5];
+    p_resultados->R02[5]=p_resultados->R2[3]*p_resultados->R0[6]+p_resultados->R2[4]*p_resultados->R0[7]+ p_resultados->R2[5]*p_resultados->R0[8];
+    p_resultados->R02[6]=p_resultados->R2[6]*p_resultados->R0[0]+p_resultados->R2[7]*p_resultados->R0[1]+ p_resultados->R2[8]*p_resultados->R0[2];
+    p_resultados->R02[7]=p_resultados->R2[6]*p_resultados->R0[3]+p_resultados->R2[7]*p_resultados->R0[4]+ p_resultados->R2[8]*p_resultados->R0[5];
+    p_resultados->R02[8]=p_resultados->R2[6]*p_resultados->R0[6]+p_resultados->R2[7]*p_resultados->R0[7]+ p_resultados->R2[8]*p_resultados->R0[8];
 
 }
 
